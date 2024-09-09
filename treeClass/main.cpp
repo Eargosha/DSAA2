@@ -11,7 +11,7 @@
 // Оно строгое, ЪыЪ
 
 #include <iostream>
-#include "treeNode.h"
+#include "BinaryTree.h"
 
 int main()
 {
