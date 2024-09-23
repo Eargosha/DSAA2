@@ -11,35 +11,94 @@
 // Оно строгое, ЪыЪ
 
 #include <iostream>
-#include "BinaryTree.h"
+#include "BinarySearchTreeHeader.h"
+
+// Проверить комменты
 
 int main()
 {
-    BinaryTree<int> tree;
+    BinarySearchTree<int> testTree;
+    testTree.doTest();
 
-    tree.insert(8);
-    tree.insert(3);
-    tree.insert(10);
-    tree.insert(1);
-    tree.insert(6);
-    tree.insert(14);
-    tree.insert(4);
-    tree.insert(7);
-    tree.insert(13);
+    setlocale(LC_ALL, "Russian");
+    int wayToGo;
+    cout << "Какой способ построения? Введи 1 чтобы построить дерево через BinarySearchTree, 2 - чтобы через TreeNodule ";
+    cin >> wayToGo;
+    if (wayToGo == 1)
+    {
+        BinarySearchTree<int> tree;
 
-    cout << "Корень:" << endl;
-    tree.printNode(tree.getRoot());
+        tree.insert(8);
+        tree.insert(3);
+        tree.insert(10);
+        tree.insert(1);
+        tree.insert(6);
+        tree.insert(14);
+        tree.insert(4);
+        tree.insert(7);
+        tree.insert(13);
 
-    cout << "Справа от 14:" << endl;
-    tree.printNode(tree.getNodeByValue(14)->noduleRight);
-    cout << "Слева от 14:" << endl;
-    tree.printNode(tree.getNodeByValue(14)->noduleLeft);
+        cout << "Корень:" << endl;
+        tree.printNode(tree.getRoot());
 
-    cout << "<========== ДеревошкА ==========>" << endl;
-    tree.printTree();
+        cout << "Справа от 14:" << endl;
+        tree.printNode(tree.getNodeByValue(14)->noduleRight);
+        cout << "Слева от 14:" << endl;
+        tree.printNode(tree.getNodeByValue(14)->noduleLeft);
 
-    cout << "<========== Инордерный обхоД ==========>" << endl;
-    tree.inorder();
+        cout << "<========== ДеревошкА ==========>" << endl;
+        tree.printTree();
+
+        tree.printBypassInorderLNR();
+        tree.printBypassPreorderNRL();
+        tree.printBypassPostorderRLN();
+
+        tree.remove(8);
+        cout << "<========== Деревошка после изменениЯ ==========>" << endl;
+        tree.printTree();
+        
+    }
+    if (wayToGo == 2)
+    {
+        //         10
+        //        /  \
+//      5     15
+        //     /  \  /  \
+//    3    7 12  20  Совершенно!!!
+
+        cout << "<========== ДеревошкА ==========>" << endl;
+
+        TreeNodule<int> root;
+        root.noduleData = 10;
+
+        TreeNodule<int> *leftNode = new TreeNodule<int>(5);
+        TreeNodule<int> *leftLeftNode = new TreeNodule<int>(3);
+        TreeNodule<int> *leftRightNode = new TreeNodule<int>(7);
+        leftNode->noduleLeft = leftLeftNode;
+        leftNode->noduleRight = leftRightNode;
+
+        TreeNodule<int> *rightNode = new TreeNodule<int>(15);
+        TreeNodule<int> *rightLeftNode = new TreeNodule<int>(12);
+        TreeNodule<int> *rightRightNode = new TreeNodule<int>(20);
+        rightNode->noduleLeft = rightLeftNode;
+        rightNode->noduleRight = rightRightNode;
+
+        root.noduleLeft = leftNode;
+        root.noduleRight = rightNode;
+
+        printTreeRecursive(&root, 0);
+
+        cout << "<========== Самый правый листик ==========>\n"
+             << root.noduleRight->noduleRight->noduleData;
+
+        delete rightRightNode;
+        delete rightLeftNode;
+        delete leftRightNode;
+        delete leftLeftNode;
+        delete leftNode;
+        delete rightNode;
+        root.~TreeNodule();
+    }
 
     return 0;
 }
