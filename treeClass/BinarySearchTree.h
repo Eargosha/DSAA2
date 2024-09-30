@@ -73,6 +73,8 @@ public:
     }
 
     /// @brief Функция вставки нового узла в дерево
+    /// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
+    /// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
     /// @param value Значение нового узла
     void insert(const Type &value)
     {
@@ -81,6 +83,8 @@ public:
 
     /// @brief Функция для получения значения узла по заданному ключу
     /// @param key Значение ключа для поиска узла
+    /// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
+    /// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
     /// @return Возвращает найденный узел, если он найден, иначе выбрасывает исключение
     TreeNodule<Type> *getNodeByValue(const Type &key) const
     {
@@ -92,7 +96,7 @@ public:
         return node;
     }
 
-    /// @brief Выводит значение определенного узла
+    /// @brief Выводит значение определенного узла. O(1)
     /// @param node Узел, значение которого выведется
     void printNode(TreeNodule<Type> *node) const
     {
@@ -106,7 +110,7 @@ public:
         }
     }
 
-    /// @brief Метод симметричного обхода дерева - LNR
+    /// @brief Метод симметричного обхода дерева - LNR. BigO(n). Сложность O(n) - посещаем каждый узел 1 раз
     /// @return Массив типа vector<Type>
     vector<Type> inorder()
     {
@@ -115,7 +119,7 @@ public:
         return result;
     }
 
-    /// @brief Метод прямого обхода дерева - NRL
+    /// @brief Метод прямого обхода дерева - NRL. BigO(n). Сложность O(n) - посещаем каждый узел 1 раз
     /// @return Массив типа vector<Type>
     vector<Type> preorder()
     {
@@ -124,7 +128,7 @@ public:
         return result;
     }
 
-    /// @brief Метод обратного обхода дерева - RLN
+    /// @brief Метод обратного обхода дерева - RLN. BigO(n). Сложность O(n) - посещаем каждый узел 1 раз
     /// @return Массив типа vector<Type>
     vector<Type> postorder()
     {
@@ -133,13 +137,13 @@ public:
         return result;
     }
 
-    /// @brief Метод для рисования дерева в консольку под +90 градусов, начиная с корня
+    /// @brief Метод для рисования дерева в консольку под +90 градусов, начиная с корня. Сложность O(n) - посещаем каждый узел 1 раз
     void printTree() const
     {
         printTreeRecursive(root, 0);
     }
 
-    /// @brief Метод вывода обхода дерева LNR в консоль
+    /// @brief Метод вывода обхода дерева LNR в консоль. Сложность O(n) - посещаем каждый узел 1 раз
     void printBypassInorderLNR()
     {
         vector<Type> temp;
@@ -152,7 +156,7 @@ public:
         cout << endl;
     }
 
-    /// @brief Метод вывода обхода дерева NRL в консоль
+    /// @brief Метод вывода обхода дерева NRL в консоль. Сложность O(n) - посещаем каждый узел 1 раз
     void printBypassPreorderNRL()
     {
         vector<Type> temp;
@@ -165,7 +169,7 @@ public:
         cout << endl;
     }
 
-    /// @brief Метод вывода обхода дерева RLN в консоль
+    /// @brief Метод вывода обхода дерева RLN в консоль. Сложность O(n) - посещаем каждый узел 1 раз
     void printBypassPostorderRLN()
     {
         vector<Type> temp;
@@ -178,7 +182,7 @@ public:
         cout << endl;
     }
 
-    /// @brief Функция расчета глубины дерева
+    /// @brief Функция расчета глубины дерева. Сложность O(n) - посещаем каждый узел 1 раз
     /// @return Возращает число int - глубину дерева
     int getTreeDepth() const
     {
@@ -189,28 +193,28 @@ public:
     // симметрического обхода LNR
     // прямого обхода NRL
     // обратного обхода RLN
-    /// @brief Функция симметричного(LNR) применения функции к каждому узлу дерева
+    /// @brief Функция симметричного(LNR) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
     /// @param func Сама функция, что применяется к узлу
     void applyInorder(const function<void(Type &)> &func)
     {
         inorderApply(root, func);
     }
 
-    /// @brief Функция прямого(NRL) применения функции к каждому узлу дерева
+    /// @brief Функция прямого(NRL) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
     /// @param func Сама функция, что применяется к узлу
     void applyPostorder(const function<void(Type &)> &func)
     {
         postorderApply(root, func);
     }
 
-    /// @brief Функция обратного(RLN) применения функции к каждому узлу дерева
+    /// @brief Функция обратного(RLN) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
     /// @param func Сама функция, что применяется к узлу
     void applyPreorder(const function<void(Type &)> &func)
     {
         preorderApply(root, func);
     }
 
-    /// @brief Функция копирования дерева
+    /// @brief Функция копирования дерева. Сложность O(n) - посещаем каждый узел 1 раз
     /// @return Возращает скопированное дерево
     BinarySearchTree copy()
     {
@@ -219,22 +223,23 @@ public:
         return tree;
     }
 
-    /// @brief Посчитать кол-во узлов в дереве
+    /// @brief Посчитать кол-во узлов в дереве. Сложность O(n) - посещаем каждый узел 1 раз
     /// @return size_t - кол-во узлов
     size_t getTreeNodesCount() const
     {
         return countRecursive(root);
     }
 
-    /// @brief Удаляет узел с даннными data
+    /// @brief Удаляет узел с даннными data. Сложность: O(log n), в худшем O(n).
     /// @param data Указывает на узел с данными data
     void remove(const Type &data)
     {
         removeNodeRecoursive(root, data);
     }
 
-    /// @brief Функция для удаления дерева
-    void deleteTreeNow() {
+    /// @brief Функция для удаления дерев. Сложность O(n) - посещаем каждый узел 1 раз
+    void deleteTreeNow()
+    {
         deleteTree(root);
         root = nullptr;
     }
@@ -326,7 +331,7 @@ public:
 
         // Тест для применения функции к узлам дерева
         treeForArray.applyInorder([](int &val)
-                        { val *= 0; });
+                                  { val *= 0; });
 
         vector<int> updatedInorderArray = treeForArray.inorder();
         vector<int> expectedUpdatedInorderArray = {0, 0, 0, 0, 0, 0, 0};
@@ -340,7 +345,7 @@ public:
         degenerateTree.insert(8);
 
         degenerateTree.applyInorder([](int &val)
-                             { val *= 2; });
+                                    { val *= 2; });
 
         vector<int> updatedDegenerateArray = degenerateTree.inorder();
         vector<int> expectedUpdatedDegenerateArray = {16, 18, 20, 22};
@@ -350,7 +355,7 @@ public:
 
         // Тест для пустого дерева
         pustoEp.applyPostorder([](int &val)
-                        { val *= 2; });
+                               { val *= 2; });
 
         vector<int> emptyArray = pustoEp.postorder();
         vector<int> expectedEmptyArray = {};
@@ -362,7 +367,7 @@ public:
         vetkaTree.insert(10);
 
         vetkaTree.applyInorder([](int &val)
-                             { val *= 2; });
+                               { val *= 2; });
 
         vector<int> singleNodeArray = vetkaTree.inorder();
         vector<int> expectedSingleNodeArray = {20};
@@ -373,7 +378,7 @@ public:
     }
 };
 
-/// @brief Вспомогательная функция для удаления дерева. Алгоритм LRN
+/// @brief Вспомогательная функция для удаления дерева. Алгоритм LRN. Сложность O(n)
 /// @param node
 template <typename Type>
 void deleteTree(TreeNodule<Type> *node)
@@ -387,6 +392,8 @@ void deleteTree(TreeNodule<Type> *node)
 }
 
 /// @brief Вспомогательная рекурсивная функция для вставки в дерево бинарного поиска BST
+/// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
+/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
 /// @param node Узел, куда вставляем
 /// @param value Значение нового узла
 /// @return Готовый узел
@@ -419,6 +426,8 @@ TreeNodule<Type> *insertRecursive(TreeNodule<Type> *node, const Type &value)
 }
 
 /// @brief Вспомогательная функция для поиска узла по ключу
+/// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
+/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
 /// @param node Текущий узел для рекурсивного поиска
 /// @param key Значение ключа для поиска
 /// @return Указатель на найденный узел, или nullptr, если не найден
@@ -445,7 +454,7 @@ TreeNodule<Type> *getNode(TreeNodule<Type> *node, const Type &key)
     }
 }
 
-/// @brief Вспомогательная функция для симметрического обхода LNR
+/// @brief Вспомогательная функция для симметрического обхода LNR. Сложность O(n) - посещаем каждый узел 1 раз
 /// @param node Текущий узел
 template <typename Type>
 void inorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
@@ -461,7 +470,7 @@ void inorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
     }
 }
 
-/// @brief Вспомогательная функция для прямого обхода NRL
+/// @brief Вспомогательная функция для прямого обхода NRL. Сложность O(n) - посещаем каждый узел 1 раз
 /// @param node Текущий узел
 template <typename Type>
 void preorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
@@ -477,7 +486,7 @@ void preorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
     }
 }
 
-/// @brief Вспомогательная функция для обратного обхода RLN
+/// @brief Вспомогательная функция для обратного обхода RLN. Сложность O(n) - посещаем каждый узел 1 раз
 /// @param node Текущий узел
 template <typename Type>
 void postorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
@@ -493,7 +502,7 @@ void postorderRecursive(TreeNodule<Type> *node, vector<Type> &temp)
     }
 }
 
-/// @brief Вспомогательная функция для рисования дерева в консоль
+/// @brief Вспомогательная функция для рисования дерева в консоль. Сложность O(n) - посещаем каждый узел 1 раз
 /// @param node Текущий узел дерева
 /// @param level Уровень рисования
 template <typename Type>
@@ -514,7 +523,7 @@ void printTreeRecursive(TreeNodule<Type> *node, int level)
     printTreeRecursive(node->noduleLeft, level + 1);
 }
 
-/// @brief Рекурсивная функция симметричного(LNR) применения функции к каждому узлу дерева
+/// @brief Рекурсивная функция симметричного(LNR) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип узла
 /// @param node Узел, с которым работаем
 /// @param func Функция, которую применяем к узлу
@@ -529,7 +538,7 @@ void inorderApply(TreeNodule<Type> *node, const function<void(Type &)> &func)
     }
 }
 
-/// @brief Рекурсивная функция прямого(NRL) применения функции к каждому узлу дерева
+/// @brief Рекурсивная функция прямого(NRL) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип узла
 /// @param node Узел, с которым работаем
 /// @param func Функция, которую применяем к узлу
@@ -544,7 +553,7 @@ void postorderApply(TreeNodule<Type> *node, const function<void(Type &)> &func)
     }
 }
 
-/// @brief Рекурсивная функция обратного(RLN) применения функции к каждому узлу дерева
+/// @brief Рекурсивная функция обратного(RLN) применения функции к каждому узлу дерева. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип узла
 /// @param node Узел, с которым работаем
 /// @param func Функция, которую применяем к узлу
@@ -559,7 +568,7 @@ void preorderApply(TreeNodule<Type> *node, const function<void(Type &)> &func)
     }
 }
 
-/// @brief Рекурсивная функция для подсчета кол-во узлов в дереве
+/// @brief Рекурсивная функция для подсчета кол-во узлов в дереве. RLN. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип дерева
 /// @param node Текущий узел
 /// @return size_t - кол-во узлов в дереве, 0 если нет узлов в дереве
@@ -578,7 +587,7 @@ size_t countRecursive(const TreeNodule<Type> *node)
     }
 }
 
-/// @brief Рекурсивная функция расчета грубины дерева
+/// @brief Рекурсивная функция расчета грубины дерева. RLN. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип дерева
 /// @param node - Текущий узел
 /// @return Возращает int - глубина дерева, -1 если дерево пустое
@@ -597,7 +606,7 @@ int depthRecursive(const TreeNodule<Type> *node)
     }
 }
 
-/// @brief Рекурсивная функция для копирования дерева NRL
+/// @brief Рекурсивная функция для копирования дерева NRL. Сложность O(n) - посещаем каждый узел 1 раз
 /// @tparam Type - тип дерева
 /// @param node Текщий узел копирования
 /// @param tree Дерево, что, куда копируем
@@ -612,7 +621,7 @@ void copyTreeRecursive(TreeNodule<Type> *node, BinarySearchTree<Type> &tree)
     }
 }
 
-/// @brief Рекурсивная функция удаления узла
+/// @brief Рекурсивная функция удаления узла. Сложность: O(log n), в худшем O(n).
 /// @tparam Type - тип узла
 /// @param node Текущий узел
 /// @param data Значение узла, которого ищем
@@ -683,6 +692,8 @@ TreeNodule<Type> *removeNodeRecoursive(TreeNodule<Type> *node, const Type &data)
  * для заданного узла. Если узел не имеет правого потомка, или
  * если правый потомок является листовым узлом, этот метод
  * возвращает nullptr.
+ *
+ * Сложность O(n) - посещаем каждый узел 1 раз
  *
  * @param node Узел, для которого нужно найти следующий узел в порядке in-order обхода.
  * @return Указатель на следующий узел в порядке in-order обхода, или nullptr, если
