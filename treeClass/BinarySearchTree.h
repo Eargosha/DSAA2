@@ -5,6 +5,7 @@
 #include <vector>
 #include <functional>
 #include <cassert>
+#include <stack>
 
 using namespace std;
 
@@ -244,6 +245,200 @@ public:
         root = nullptr;
     }
 
+    ///////////////////Итератор
+
+    /// @brief Класс итератора для BST. Инордерный обход дерева - RNL.
+    /// @details Обеспечивает доступ к элементам дерева,
+    /// поддерживает операции итерации (перемещение по дереву).
+    class Iterator
+    {
+    private:
+        /// Указатель на текущий узел дерева.
+        TreeNodule<Type> *currentNode;
+        /// Стек для хранения
+        stack<TreeNodule<Type> *> nodeStack;
+
+        void pushLeft(TreeNodule<Type> *node)
+        {
+            while (node != nullptr)
+            {
+                nodeStack.push(node);
+                node = node->noduleLeft;
+            }
+        }
+
+    public:
+        /// Конструктор, инициализирует итератор начальным узлом.
+        /// @param root Указатель на узел, с которого начинать итерацию._
+        Iterator(TreeNodule<Type> *root) : currentNode(root)
+        {
+            // Идём в самый левый узел дерева и заполняем стек
+            pushLeft(root);
+            // Устанавливаем currentNode на верхний элемент стека
+            if (root)
+            {
+                currentNode = nodeStack.top();
+                nodeStack.pop();
+            }
+        }
+
+        /// Возвращает ссылку на данные текущего узла.
+        /// @return Ссылка на данные текущего узла._
+        Type &operator*() const
+        {
+            return currentNode->noduleData;
+        }
+
+        /// @brief Оператор проверки на неравенство
+        /// @param other То с чем сравниваем
+        /// @return логическое значене bool_
+        bool operator!=(const Iterator &other) const
+        {
+            return !nodeStack.empty() || !other.nodeStack.empty();
+        }
+
+        /// Проверяет, находится ли итератор в конце списка (nullptr).
+        /// @return true, если итератор указывает на nullptr, иначе false._
+        bool hasNext() const
+        {
+            return !nodeStack.empty();
+        }
+
+        /// Переход к следующему узлу в дереве (по индексу). Инордер - RNL
+        /// @return Ссылка на текущий объект итератора._
+        Iterator &operator++()
+        {
+            return next();
+        }
+
+        /// @brief Вернуть позицию итератора в начало!_
+        void reset()
+        {
+            nodeStack.empty();
+            currentNode = root;
+            pushLeft(root);
+        }
+
+        /// @brief Переход к следующему элементу
+        /// @return Итератор, что будет следущим_
+        Iterator &next()
+        {
+            if (!hasNext())
+            {
+                throw out_of_range("Итератор вернул значение null");
+            }
+            currentNode = nodeStack.top();
+            nodeStack.pop();
+            pushLeft(currentNode->noduleRight);
+            return *this;
+        }
+
+        /// Возвращает ссылку на данные текущего узла.
+        /// @return Ссылка на данные текущего узла._
+        Type &data()
+        {
+            if (currentNode == nullptr)
+                throw runtime_error("Итератор вернул значение null");
+            return currentNode->noduleData;
+        }
+
+        /// Проверяет, совпадают ли два итератора.
+        /// @param other Итератор, с которым сравнивается текущий.
+        /// @return false, если итераторы указывают на разные узлы, иначе true.
+        bool operator==(const Iterator &other) const
+        {
+            return currentNode == other.currentNode;
+        }
+    };
+
+    /// Возвращает итератор, указывающий на начало дерева (минимальное значение).
+    /// @return Итератор, указывающий на начало дерева.
+    Iterator begin() const
+    {
+        return Iterator(root);
+    }
+
+    /// Возвращает итератор, указывающий на конец дерева (nullptr).
+    /// @return Итератор, указывающий на конец дерева.
+    Iterator end() const { return Iterator(nullptr); }
+
+    /// @brief Тестирование
+    static void assertIterator()
+    {
+        // Создаем простое бинарное дерево
+        BinarySearchTree<int> tree;
+        tree.insert(4);
+        tree.insert(2);
+        tree.insert(6);
+        tree.insert(1);
+        tree.insert(3);
+        tree.insert(5);
+        tree.insert(7);
+
+        auto it = tree.begin();
+
+        // Проверяем порядок обхода
+        assert(it.hasNext());
+        assert(*it == 1);
+        assert(it != tree.end());
+        // Проверка ==
+        assert(it == tree.begin());
+        ++it; // 2
+        assert(it.hasNext());
+        assert(*it == 2);
+        ++it; // 3
+        assert(it.hasNext());
+        assert(*it == 3);
+        // Проверка data
+        assert(it.data() == 3);
+        ++it; // 4
+        assert(it.hasNext());
+        assert(*it == 4);
+        ++it; // 5
+              // Проверка оператора !=
+        assert(it != tree.begin());
+        assert(tree.begin() != tree.end());
+
+        assert(it.hasNext());
+        assert(*it == 5);
+        ++it; // 6
+        assert(it.hasNext());
+        assert(it != tree.end());
+        assert(*it == 6);
+        ++it; // 7
+        assert(*it == 7);
+        assert(!it.hasNext());
+
+        try
+        {
+            ++it;          // Это должно выбросить исключение
+            assert(false); // Если исключение не выброшено, тест провален
+        }
+        catch (const out_of_range &)
+        {
+            assert(true); // Исключение выброшено, тест пройден
+        }
+
+        // for_each: Выводит все элементы на экран
+        for_each(tree.begin(), tree.end(), [](int &element)
+                 { cout << (element > 3) << " "; });
+
+        cout << endl;
+        // For по коллекции
+        for (int value : tree)
+        {
+            cout << (value < 3) << ' ' << endl;
+        }
+
+        // For по коллекции
+        for (auto it = tree.begin(); it != tree.end(); ++it)
+        {
+            cout << (*it == 3) << ' ' << endl;
+        }
+
+        cout << endl;
+    }
+
     /// @brief Тестить-тестить
     static void doTest()
     {
@@ -256,27 +451,85 @@ public:
         myTree.insert(11);
         myTree.insert(19);
 
+        cout << succ(myTree.root);
         assert(myTree.getTreeNodesCount() == 5);
+        assert(countRecursive(myTree.getRoot()) == 5);
         assert(myTree.getTreeDepth() == 2);
+        assert(depthRecursive(myTree.getRoot()) == 2);
+        assert(succ(myTree.root) == 11);
 
-        BinarySearchTree<int> voidTree;
-        assert(voidTree.getTreeNodesCount() == 0);
-        assert(voidTree.getTreeDepth() == -1);
+        assert(myTree.getRoot() == myTree.root);
+        assert(myTree.getNodeByValue(9) == myTree.getRoot());
+        myTree.remove(9);
+        assert(myTree.root->noduleData == 11);
+
+        myTree.deleteTreeNow();
+        assert(myTree.getTreeNodesCount() == 0);
+        assert(myTree.getTreeDepth() == -1);
+
+        myTree.insert(9);
+        myTree.insert(2);
+        myTree.insert(14);
+        myTree.insert(6);
+        myTree.insert(11);
+        myTree.insert(19);
+
+        // Создание массива на основе обхода
+        vector<int> inO = {2, 6, 9, 11, 14, 19};
+        vector<int> postO = {19, 11, 14, 6, 2, 9};
+        vector<int> preO = {9, 14, 19, 11, 2, 6};
+        assert(myTree.inorder() == inO);
+        assert(myTree.postorder() == postO);
+        assert(myTree.preorder() == preO);
+
+        // Дерево для копии
+        BinarySearchTree<int> copyTree;
+        BinarySearchTree<int> copyTree2;
+        copyTree = myTree.copy();
+        copyTree2 = myTree.copy();
+
+        // Применение apply
+        myTree.applyInorder([](int& val) { val *= 0; });
+        copyTree.applyPostorder([](int& val) { val *= 2; });
+        copyTree2.applyPreorder([](int& val) { val *= 2; });
+
+        vector<int> inOAfterApply = {0, 0, 0, 0, 0, 0};
+        assert(myTree.inorder() == inOAfterApply);
+        vector<int> postOAfterApply = {38, 22, 28, 12, 4, 18};
+        assert(copyTree.postorder() == postOAfterApply);
+        vector<int> preOAfterApply = {18, 28, 38, 22, 4, 12};
+        assert(copyTree2.preorder() == preOAfterApply);
+
+        // Проверим корешки
+        assert(myTree.root->noduleData == 0);
+        assert(copyTree.root->noduleData == 18);
+        assert(copyTree2.root->noduleData == 18);
+
+        myTree.deleteTreeNow();
 
         // Тест для пустого дерева
-        BinarySearchTree<int> pustoEp;
-        assert(pustoEp.getTreeNodesCount() == 0);
-        assert(pustoEp.getTreeDepth() == -1);
+        BinarySearchTree<int> pustoBlin;
+        assert(pustoBlin.getTreeNodesCount() == 0);
+        assert(pustoBlin.getTreeDepth() == -1);
+        try
+        {
+            pustoBlin.remove(10);
+        }
+        catch (const exception e)
+        {
+            // Перехват исключения out_of_range
+            std::cerr << "Ошибка перехвачена" << e.what() << std::endl;
+        }
 
-        pustoEp.deleteTreeNow();
-        assert(pustoEp.getTreeNodesCount() == 0);
-        assert(pustoEp.getTreeDepth() == -1);
+        pustoBlin.deleteTreeNow();
+
 
         // Тест для вырожденного дерева (справа)
         BinarySearchTree<int> goTreeRight;
         goTreeRight.insert(9);
         goTreeRight.insert(14);
         goTreeRight.insert(19);
+        assert(succ(goTreeRight.root) == 14);
 
         assert(goTreeRight.getTreeNodesCount() == 3);
         assert(goTreeRight.getTreeDepth() == 2);
@@ -292,88 +545,23 @@ public:
         goTreeLeft.insert(3);
         assert(goTreeLeft.getTreeNodesCount() == 3);
         assert(goTreeLeft.getTreeDepth() == 2);
+        assert(succ(goTreeLeft.root) == 6);
 
         goTreeLeft.deleteTreeNow();
         assert(goTreeLeft.getTreeNodesCount() == 0);
         assert(goTreeLeft.getTreeDepth() == -1);
 
         // Тест для дерева из одного узла
-        BinarySearchTree<int> vetkaTree;
-        vetkaTree.insert(929);
-        assert(vetkaTree.getTreeNodesCount() == 1);
-        assert(vetkaTree.getTreeDepth() == 0);
+        BinarySearchTree<int> singleTreeNodule;
+        singleTreeNodule.insert(11);
+        assert(singleTreeNodule.getTreeNodesCount() == 1);
+        assert(singleTreeNodule.getTreeDepth() == 0);
+        assert(singleTreeNodule.getRoot()->noduleData == 11);
 
-        vetkaTree.deleteTreeNow();
-        assert(vetkaTree.getTreeNodesCount() == 0);
-        assert(vetkaTree.getTreeDepth() == -1);
+        singleTreeNodule.deleteTreeNow();
+        assert(singleTreeNodule.getTreeNodesCount() == 0);
+        assert(singleTreeNodule.getTreeDepth() == -1);
 
-        // Тест для создания массива на основе обхода
-        BinarySearchTree<int> treeForArray;
-        treeForArray.insert(11);
-        treeForArray.insert(6);
-        treeForArray.insert(16);
-        treeForArray.insert(3);
-        treeForArray.insert(8);
-        treeForArray.insert(13);
-        treeForArray.insert(21);
-
-        vector<int> preorderArray = treeForArray.preorder();
-        vector<int> expectedPreorderArray = {11, 16, 21, 13, 6, 8, 3};
-        assert(preorderArray == expectedPreorderArray);
-
-        vector<int> inorderArray = treeForArray.inorder();
-        vector<int> expectedInorderArray = {3, 6, 8, 11, 13, 16, 21};
-        assert(inorderArray == expectedInorderArray);
-
-        vector<int> postorderArray = treeForArray.postorder();
-        vector<int> expectedPostorderArray = {21, 13, 16, 8, 3, 6, 11};
-        assert(postorderArray == expectedPostorderArray);
-
-        // Тест для применения функции к узлам дерева
-        treeForArray.applyInorder([](int &val)
-                                  { val *= 0; });
-
-        vector<int> updatedInorderArray = treeForArray.inorder();
-        vector<int> expectedUpdatedInorderArray = {0, 0, 0, 0, 0, 0, 0};
-        assert(updatedInorderArray == expectedUpdatedInorderArray);
-
-        // Тест для вырожденного дерева
-        BinarySearchTree<int> degenerateTree;
-        degenerateTree.insert(11);
-        degenerateTree.insert(10);
-        degenerateTree.insert(9);
-        degenerateTree.insert(8);
-
-        degenerateTree.applyInorder([](int &val)
-                                    { val *= 2; });
-
-        vector<int> updatedDegenerateArray = degenerateTree.inorder();
-        vector<int> expectedUpdatedDegenerateArray = {16, 18, 20, 22};
-        assert(updatedDegenerateArray == expectedUpdatedDegenerateArray);
-
-        degenerateTree.deleteTreeNow();
-
-        // Тест для пустого дерева
-        pustoEp.applyPostorder([](int &val)
-                               { val *= 2; });
-
-        vector<int> emptyArray = pustoEp.postorder();
-        vector<int> expectedEmptyArray = {};
-        assert(emptyArray == expectedEmptyArray);
-
-        pustoEp.deleteTreeNow();
-
-        // Тест для дерева с одним узлом
-        vetkaTree.insert(10);
-
-        vetkaTree.applyInorder([](int &val)
-                               { val *= 2; });
-
-        vector<int> singleNodeArray = vetkaTree.inorder();
-        vector<int> expectedSingleNodeArray = {20};
-        assert(singleNodeArray == expectedSingleNodeArray);
-
-        vetkaTree.deleteTreeNow();
         cout << "<========== Тесты прошлепанЫ ==========>" << endl;
     }
 };
@@ -393,7 +581,7 @@ void deleteTree(TreeNodule<Type> *node)
 
 /// @brief Вспомогательная рекурсивная функция для вставки в дерево бинарного поиска BST
 /// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
-/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
+/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время. В несбалансированном дереве O(n)
 /// @param node Узел, куда вставляем
 /// @param value Значение нового узла
 /// @return Готовый узел
@@ -427,7 +615,7 @@ TreeNodule<Type> *insertRecursive(TreeNodule<Type> *node, const Type &value)
 
 /// @brief Вспомогательная функция для поиска узла по ключу
 /// @brief Сложность O(log(n)) - Так как проверяем  при этом на каждом шаге мы проверяем, в какую сторону
-/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время
+/// @brief (левую или правую) необходимо двигаться. Это позволяет найти нужное место для вставки за логарифмическое время. В несбалансированном дереве O(n)
 /// @param node Текущий узел для рекурсивного поиска
 /// @param key Значение ключа для поиска
 /// @return Указатель на найденный узел, или nullptr, если не найден
@@ -616,8 +804,8 @@ void copyTreeRecursive(TreeNodule<Type> *node, BinarySearchTree<Type> &tree)
     if (node != nullptr)
     {
         tree.insert(node->noduleData);
-        copyRecoursive(node->noduleRight, tree);
-        copyRecoursive(node->noduleLeft, tree);
+        copyTreeRecursive(node->noduleRight, tree);
+        copyTreeRecursive(node->noduleLeft, tree);
     }
 }
 
@@ -693,7 +881,8 @@ TreeNodule<Type> *removeNodeRecoursive(TreeNodule<Type> *node, const Type &data)
  * если правый потомок является листовым узлом, этот метод
  * возвращает nullptr.
  *
- * Сложность O(n) - посещаем каждый узел 1 раз
+ * Сложность O(n) - посещаем каждый узел 1 раз (в несбалансированном)
+ * Сложность O(Log(n)) - в сбалансированном
  *
  * @param node Узел, для которого нужно найти следующий узел в порядке in-order обхода.
  * @return Указатель на следующий узел в порядке in-order обхода, или nullptr, если
