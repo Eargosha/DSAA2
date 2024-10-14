@@ -19,6 +19,7 @@ int main()
 {
     BinarySearchTree<int> testTree;
     testTree.doTest();
+    testTree.assertIterator();
 
     setlocale(LC_ALL, "Russian");
     int wayToGo;
@@ -34,29 +35,41 @@ int main()
         tree.insert(1);
         tree.insert(6);
         tree.insert(14);
-        tree.insert(4);
-        tree.insert(7);
-        tree.insert(13);
+        // tree.insert(4);
+        // tree.insert(7);
+        // tree.insert(13);
 
-        cout << "Корень:" << endl;
-        tree.printNode(tree.getRoot());
+        // cout << "Корень:" << endl;
+        // tree.printNode(tree.getRoot());
 
-        cout << "Справа от 14:" << endl;
-        tree.printNode(tree.getNodeByValue(14)->noduleRight);
-        cout << "Слева от 14:" << endl;
-        tree.printNode(tree.getNodeByValue(14)->noduleLeft);
+        // cout << "Справа от 14:" << endl;
+        // tree.printNode(tree.getNodeByValue(14)->noduleRight);
+        // cout << "Слева от 14:" << endl;
+        // tree.printNode(tree.getNodeByValue(14)->noduleLeft);
 
-        cout << "<========== ДеревошкА ==========>" << endl;
-        tree.printTree();
+        // cout << "<========== ДеревошкА ==========>" << endl;
+        // tree.printTree();
 
-        tree.printBypassInorderLNR();
-        tree.printBypassPreorderNRL();
-        tree.printBypassPostorderRLN();
+        // tree.printBypassInorderLNR();
+        // tree.printBypassPreorderNRL();
+        // tree.printBypassPostorderRLN();
 
-        tree.remove(8);
-        cout << "<========== Деревошка после изменениЯ ==========>" << endl;
-        tree.printTree();
-        
+        // tree.remove(8);
+        // cout << "<========== Деревошка после изменениЯ ==========>" << endl;
+        // tree.printTree();
+        auto it = tree.begin(); // Сохраняем итератор
+
+        // while (it != tree.end())
+        // {
+        //     cout << it.data() << endl; // Выводит значение текущего узла
+        //     ++it;                      // Переход к следующему элементу
+        // }
+        // Итерация по дереву
+        // auto it = tree.begin();
+        for (auto it = tree.begin(); it.hasNext(); ++it)
+        {
+            cout << *it << endl;
+        }
     }
     if (wayToGo == 2)
     {
