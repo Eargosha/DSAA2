@@ -1,0 +1,18 @@
+﻿  ConsoleApplication1.cpp
+D:\3curs\DSAA\heap\heap.h(164,1): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\3curs\DSAA\heap\heap.h(160,1): message : во время компиляции функции-члена класс шаблон "void MaxHeap<int>::insert(T)"
+          with
+          [
+              T=int
+          ]
+D:\3curs\DSAA\heap\heap.h(353,23): message : выполняется компиляция ссылки на экземпляр шаблон функции "void MaxHeap<int>::insert(T)"
+          with
+          [
+              T=int
+          ]
+D:\3curs\DSAA\heap\heap.h(348,1): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "MaxHeap<int>"
+D:\3curs\DSAA\heap\heap.h(434,2): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "MaxHeap<T>"
+D:\3curs\DSAA\heap\heap.h(273,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\3curs\DSAA\heap\heap.h(272,1): message : во время компиляции функции-члена класс шаблон "void MaxHeap<int>::buildHeap(void)"
+D:\3curs\DSAA\heap\heap.h(153,18): message : выполняется компиляция ссылки на экземпляр шаблон функции "void MaxHeap<int>::buildHeap(void)"
+  ConsoleApplication1.vcxproj -> C:\Users\User\Desktop\d\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe

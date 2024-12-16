@@ -1,0 +1,40 @@
+﻿  Graph.cpp
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(66,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(57): message : во время компиляции функции-члена класс шаблон "void UWGraph<std::string>::insertVertex(const T &)"
+          with
+          [
+              T=std::string
+          ]
+C:\Users\User\Desktop\WGraph\Graph\Graph.cpp(11): message : выполняется компиляция ссылки на экземпляр шаблон функции "void UWGraph<std::string>::insertVertex(const T &)"
+          with
+          [
+              T=std::string
+          ]
+C:\Users\User\Desktop\WGraph\Graph\Graph.cpp(8): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "UWGraph<std::string>"
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(517,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(507): message : во время компиляции функции-члена класс шаблон "void UWGraph<int>::testGraph(void)"
+C:\Users\User\Desktop\WGraph\Graph\Graph.cpp(9): message : выполняется компиляция ссылки на экземпляр шаблон функции "void UWGraph<int>::testGraph(void)"
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(509): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "UWGraph<int>"
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(621): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "UWGraph<T>"
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(523,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(529,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(535,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(541,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(547,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(553,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(559,36): warning C4101: e: неиспользованная локальная переменная
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(298,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(291): message : во время компиляции функции-члена класс шаблон "std::vector<double,std::allocator<double>> UWGraph<int>::findShortestPathForVertex(const T &)"
+          with
+          [
+              T=int
+          ]
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(550): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::vector<double,std::allocator<double>> UWGraph<int>::findShortestPathForVertex(const T &)"
+          with
+          [
+              T=int
+          ]
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(278,1): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(277): message : во время компиляции функции-члена класс шаблон "int UWGraph<int>::getCountOfVertices(void) const"
+C:\Users\User\Desktop\WGraph\Graph\Graph.h(511): message : выполняется компиляция ссылки на экземпляр шаблон функции "int UWGraph<int>::getCountOfVertices(void) const"
+  Graph.vcxproj -> C:\Users\User\Desktop\WGraph\Graph\x64\Debug\Graph.exe

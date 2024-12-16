@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b00f93e0-536c-4e2f-bf70-f864b31c39fd": {
+      "ProjectGuid": "b00f93e0-536c-4e2f-bf70-f864b31c39fd",
+      "DisplayName": "AVL",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

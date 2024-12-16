@@ -1,0 +1,5 @@
+C:\Users\Eargosha\Desktop\pipez\HashTable\x64\Debug\HashTable.exe
+E:\3curs\DSAA\HashTable\HashTable\x64\Debug\HashTable.exe
+C:\Users\User\Desktop\HashTable\x64\Debug\HashTable.exe
+G:\3curs\DSAA\HashTable\новый HashTable\x64\Debug\HashTable.exe
+C:\Users\Eargosha\Desktop\новый HashTable\x64\Debug\HashTable.exe

@@ -1,0 +1,75 @@
+﻿  Graph.cpp
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(299,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Graph.cpp')
+  C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(299,15):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.cpp(8,21):
+  	see reference to class template instantiation 'UWGraph<std::string>' being compiled
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(292,20):
+  	while compiling class template member function 'std::vector<double,std::allocator<double>> UWGraph<std::string>::findShortestPathForVertex(const T &)'
+          with
+          [
+              T=std::string
+          ]
+  		C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.cpp(53,38):
+  		see the first reference to 'UWGraph<std::string>::findShortestPathForVertex' in 'main'
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(69,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Graph.cpp')
+  C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(69,21):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(60,10):
+  	while compiling class template member function 'void UWGraph<std::string>::insertVertex(const T &)'
+          with
+          [
+              T=std::string
+          ]
+  		C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.cpp(11,23):
+  		see the first reference to 'UWGraph<std::string>::insertVertex' in 'main'
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(513,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(513,36):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(617,2):
+  	see reference to class template instantiation 'UWGraph<T>' being compiled
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(505,22):
+  	see reference to class template instantiation 'UWGraph<int>' being compiled
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(503,17):
+  	while compiling class template member function 'void UWGraph<int>::testGraph(void)'
+  		C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.cpp(9,28):
+  		see the first reference to 'UWGraph<int>::testGraph' in 'main'
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(519,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(525,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(531,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(537,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(543,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(549,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(555,36): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Graph.cpp')
+  
+C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(281,29): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Graph.cpp')
+  C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(281,29):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(280,9):
+  	while compiling class template member function 'int UWGraph<int>::getCountOfVertices(void) const'
+  		C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.h(507,9):
+  		see the first reference to 'UWGraph<int>::getCountOfVertices' in 'UWGraph<int>::testGraph'
+  		C:\Users\Eargosha\Desktop\WGraph\Graph\Graph.cpp(9,28):
+  		see the first reference to 'UWGraph<int>::testGraph' in 'main'
+  
+  Graph.vcxproj -> C:\Users\Eargosha\Desktop\WGraph\Graph\x64\Debug\Graph.exe
